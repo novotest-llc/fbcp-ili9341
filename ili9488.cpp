@@ -22,7 +22,8 @@ void InitILI9488()
 #endif
 
   // Do the initialization with a very low SPI bus speed, so that it will succeed even if the bus speed chosen by the user is too high.
-  spi->clk = 34;
+//  spi->clk = 34;
+  spi->clk = 8;
   __sync_synchronize();
 
   BEGIN_SPI_COMMUNICATION();
