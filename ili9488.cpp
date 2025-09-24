@@ -9,13 +9,10 @@
 
 // Memory access control. Determines display orientation,
 // display color filter and refresh order/direction.
-#define MADCTL_HORIZONTAL_REFRESH_ORDER (1<<2)
-#define MADCTL_BGR_PIXEL_ORDER (1<<3)
-#define MADCTL_VERTICAL_REFRESH_ORDER (1<<4)
-#define MADCTL_ROW_COLUMN_EXCHANGE (1<<5)
-#define MADCTL_COLUMN_ADDRESS_ORDER_SWAP (1<<6)
-#define MADCTL_ROW_ADDRESS_ORDER_SWAP (1<<7)
-#define MADCTL_ROTATE_180_DEGREES (MADCTL_COLUMN_ADDRESS_ORDER_SWAP | MADCTL_ROW_ADDRESS_ORDER_SWAP)
+#define ROTATE_0_DEGREES 0x08
+#define ROTATE_90_DEGREES 0x68
+#define ROTATE_180_DEGREES 0xc8
+#define ROTATE_270_DEGREES 0xa8
 
 void InitILI9488()
 {
@@ -40,26 +37,25 @@ void InitILI9488()
         SPI_TRANSFER(0xC0, 0x17, 0x17); 
         SPI_TRANSFER(0xC1, 0x44); 
         SPI_TRANSFER(0xC5, 0x00, 0x35, 0x80); 
-    uint8_t madctl(0);
-#ifndef DISPLAY_SWAP_BGR
-    madctl |= MADCTL_BGR_PIXEL_ORDER;
+        
+        uint8_t madctl;
+#ifdef DISPLAY_ROTATE_0_DEGREES
+        madctl = ROTATE_0_DEGREES;
 #endif
-#if defined(DISPLAY_FLIP_ORIENTATION_IN_HARDWARE)
-    madctl |= MADCTL_ROW_COLUMN_EXCHANGE;
+
+#ifdef DISPLAY_ROTATE_90_DEGREES
+        madctl = ROTATE_180_DEGREES;
 #endif
+
 #ifdef DISPLAY_ROTATE_180_DEGREES
-    madctl ^= MADCTL_ROTATE_180_DEGREES;
+        madctl = ROTATE_180_DEGREES;
 #endif
-    //
-    // Shifted value of bits [7:5] (MY - ROW_ADDRESS_ORDER_SWAP, MX - COLUMN_ADDRESS_ORDER_SWAP, MV ROW_COLUMN_EXCHANGE)
-    // and their resulting effect on the orientation of the image
-    // relative to the physical screen:
-    // 0x40 0 deg (W = 320, H = 480, FPC connector at bottom)
-    // 0x20 90 deg (W = 480, H = 320, FPC connector on right)
-    // 0x80 180 deg (W = 320, H = 480, FPC connector on top)
-    // 0xE0 270 deg (W = 480, H = 320, FPC connector on left)
-      // 0x36 Memory Access Control - sets display rotation.
-      SPI_TRANSFER(0x36, madctl);
+
+#ifdef DISPLAY_ROTATE_270_DEGREES
+        madctl = ROTATE_180_DEGREES;
+#endif
+
+        SPI_TRANSFER(0x36, madctl);
         
 //        SPI_TRANSFER(0x36, 0x08); 
         SPI_TRANSFER(0x3A, 0x66); //rgb666
