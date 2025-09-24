@@ -38,23 +38,19 @@ void InitILI9488()
         SPI_TRANSFER(0xC1, 0x44); 
         SPI_TRANSFER(0xC5, 0x00, 0x35, 0x80); 
         
-        uint8_t madctl;
+        uint8_t madctl = ROTATE_0_DEGREES;
 #ifdef DISPLAY_ROTATE_0_DEGREES
         madctl = ROTATE_0_DEGREES; 
 #endif 
-
 #ifdef DISPLAY_ROTATE_90_DEGREES
         madctl = ROTATE_180_DEGREES;
 #endif
-
 #ifdef DISPLAY_ROTATE_180_DEGREES
         madctl = ROTATE_180_DEGREES;
 #endif
-
 #ifdef DISPLAY_ROTATE_270_DEGREES
         madctl = ROTATE_180_DEGREES;
 #endif
-
         SPI_TRANSFER(0x36, madctl);
         
 //        SPI_TRANSFER(0x36, 0x08); 
