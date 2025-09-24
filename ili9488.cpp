@@ -40,7 +40,7 @@ void InitILI9488()
         
         uint8_t madctl = ROTATE_0_DEGREES;
         /*
-#ifdef DISPLAY_ROTATE_0_DEGREES
+#ifdef DISPLAY_ROTATE_0_DEGREES 
         madctl = ROTATE_0_DEGREES; 
 #endif 
 #ifdef DISPLAY_ROTATE_90_DEGREES
