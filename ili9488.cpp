@@ -17,7 +17,7 @@ void InitILI9488()
   usleep(120 * 1000);
   CLEAR_GPIO(GPIO_TFT_RESET_PIN);
   usleep(120 * 1000);
-  SET_GPIO(GPIO_TFT_RESET_PIN);
+  SET_GPIO(GPIO_TFT_RESET_PIN);   
   usleep(120 * 1000);
 #endif
 
@@ -47,12 +47,6 @@ void InitILI9488()
         SPI_TRANSFER(0x29); //display on
       
       /*
-      
-      
-      
-      
-      
-      
       //0xE0 - PGAMCTRL Positive Gamma Control
       SPI_TRANSFER(0xE0, 0x00, 0x03, 0x09, 0x08, 0x16, 0x0A, 0x3F, 0x78, 0x4C, 0x09, 0x0A, 0x08, 0x16, 0x1A, 0x0F);
       //0xE1 - NGAMCTRL Negative Gamma Control
