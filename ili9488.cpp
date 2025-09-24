@@ -53,7 +53,7 @@ void InitILI9488()
         madctl = ROTATE_180_DEGREES;
 #endif
          */
-        SPI_TRANSFER(0x36, ROTATE_90_DEGREES);
+        SPI_TRANSFER(0x36, madctl);
         
 //        SPI_TRANSFER(0x36, 0x08); 
         SPI_TRANSFER(0x3A, 0x66); //rgb666
