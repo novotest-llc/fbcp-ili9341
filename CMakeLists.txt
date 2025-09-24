@@ -154,10 +154,28 @@ if (DISPLAY_INVERT_COLORS)
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DDISPLAY_INVERT_COLORS")
 endif()
 
+option(DISPLAY_ROTATE_0_DEGREES "If true, rotates display upside down" OFF)
+if (DISPLAY_ROTATE_0_DEGREES)
+	message(STATUS "Rotating 0")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DDISPLAY_ROTATE_0_DEGREES")
+endif()
+
+option(DISPLAY_ROTATE_90_DEGREES "If true, rotates display upside down" OFF)
+if (DISPLAY_ROTATE_90_DEGREES)
+	message(STATUS "Rotating 90")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DDISPLAY_ROTATE_90_DEGREES")
+endif()
+
 option(DISPLAY_ROTATE_180_DEGREES "If true, rotates display upside down" OFF)
 if (DISPLAY_ROTATE_180_DEGREES)
 	message(STATUS "Rotating display output by 180 degrees")
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DDISPLAY_ROTATE_180_DEGREES")
+endif()
+
+option(DISPLAY_ROTATE_270_DEGREES "If true, rotates display upside down" OFF)
+if (DISPLAY_ROTATE_270_DEGREES)
+	message(STATUS "Rotating 270")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DDISPLAY_ROTATE_270_DEGREES")
 endif()
 
 option(KEDEI_V63_MPI3501 "Target KeDei 3.5 inch SPI TFTLCD 480*320 16bit/186bit version 6.3 2018/4/9 display (MPI3501)" OFF)
