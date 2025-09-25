@@ -74,7 +74,7 @@ void InitILI9488()
 //**************************************************************************************** 
 void InitILI9488()
 {
-    f defined(GPIO_TFT_RESET_PIN) && GPIO_TFT_RESET_PIN >= 0
+if defined(GPIO_TFT_RESET_PIN) && GPIO_TFT_RESET_PIN >= 0
     printf("Resetting ili9488 display at reset GPIO pin %d\n", GPIO_TFT_RESET_PIN);
     SET_GPIO_MODE(GPIO_TFT_RESET_PIN, 1);
     SET_GPIO(GPIO_TFT_RESET_PIN);
