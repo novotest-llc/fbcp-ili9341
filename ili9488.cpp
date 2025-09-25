@@ -13,6 +13,15 @@
 #define ROTATE_90_DEGREES 0x68
 #define ROTATE_180_DEGREES 0xc8
 #define ROTATE_270_DEGREES 0xa8
+// Memory access control. Determines display orientation,
+// display color filter and refresh order/direction.
+#define MADCTL_HORIZONTAL_REFRESH_ORDER (1<<2)
+#define MADCTL_BGR_PIXEL_ORDER (1<<3)
+#define MADCTL_VERTICAL_REFRESH_ORDER (1<<4)
+#define MADCTL_ROW_COLUMN_EXCHANGE (1<<5)
+#define MADCTL_COLUMN_ADDRESS_ORDER_SWAP (1<<6)
+#define MADCTL_ROW_ADDRESS_ORDER_SWAP (1<<7)
+#define MADCTL_ROTATE_180_DEGREES (MADCTL_COLUMN_ADDRESS_ORDER_SWAP | MADCTL_ROW_ADDRESS_ORDER_SWAP)
 
 void InitILI9488()
 {
