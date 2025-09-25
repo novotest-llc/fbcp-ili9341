@@ -73,6 +73,24 @@ void InitILI9488()
         SPI_TRANSFER(0x29); //display on 
         */      
       
+  // If a Reset pin is defined, toggle it briefly high->low->high to enable the device. Some devices do not have a reset pin, in which case compile with GPIO_TFT_RESET_PIN left undefined.
+#if defined(GPIO_TFT_RESET_PIN) && GPIO_TFT_RESET_PIN >= 0
+  printf("Resetting ili9488 display at reset GPIO pin %d\n", GPIO_TFT_RESET_PIN);
+  SET_GPIO_MODE(GPIO_TFT_RESET_PIN, 1);
+  SET_GPIO(GPIO_TFT_RESET_PIN);
+  usleep(120 * 1000);
+  CLEAR_GPIO(GPIO_TFT_RESET_PIN);
+  usleep(120 * 1000);
+  SET_GPIO(GPIO_TFT_RESET_PIN);
+  usleep(120 * 1000);
+#endif
+
+  // Do the initialization with a very low SPI bus speed, so that it will succeed even if the bus speed chosen by the user is too high.
+  spi->clk = 34;
+  __sync_synchronize();
+
+  BEGIN_SPI_COMMUNICATION();
+  {
       //0xE0 - PGAMCTRL Positive Gamma Control
       SPI_TRANSFER(0xE0, 0x00, 0x03, 0x09, 0x08, 0x16, 0x0A, 0x3F, 0x78, 0x4C, 0x09, 0x0A, 0x08, 0x16, 0x1A, 0x0F);
       //0xE1 - NGAMCTRL Negative Gamma Control
@@ -168,6 +186,7 @@ void InitILI9488()
 
     ClearScreen();
   }
+  
 #ifndef USE_DMA_TRANSFERS // For DMA transfers, keep SPI CS & TA active.
   END_SPI_COMMUNICATION();
 #endif
