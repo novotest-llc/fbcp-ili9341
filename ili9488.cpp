@@ -34,25 +34,26 @@ void InitILI9488()
   __sync_synchronize();
     BEGIN_SPI_COMMUNICATION();
     {
+/*
         SPI_TRANSFER(0xC0, 0x17, 0x17); 
         SPI_TRANSFER(0xC1, 0x44); 
         SPI_TRANSFER(0xC5, 0x00, 0x35, 0x80); 
         
         uint8_t madctl = ROTATE_0_DEGREES;
-        /*
-#ifdef DISPLAY_ROTATE_0_DEGREES 
-        madctl = ROTATE_0_DEGREES; 
-#endif 
-#ifdef DISPLAY_ROTATE_90_DEGREES
-        madctl = ROTATE_180_DEGREES;
-#endif
-#ifdef DISPLAY_ROTATE_180_DEGREES
-        madctl = ROTATE_180_DEGREES;
-#endif
-#ifdef DISPLAY_ROTATE_270_DEGREES
-        madctl = ROTATE_180_DEGREES;
-#endif
-         */
+        
+//#ifdef DISPLAY_ROTATE_0_DEGREES 
+  //      madctl = ROTATE_0_DEGREES; 
+//#endif 
+//#ifdef DISPLAY_ROTATE_90_DEGREES
+  //      madctl = ROTATE_180_DEGREES;
+//#endif
+//#ifdef DISPLAY_ROTATE_180_DEGREES
+  //      madctl = ROTATE_180_DEGREES;
+//#endif
+//#ifdef DISPLAY_ROTATE_270_DEGREES
+  //      madctl = ROTATE_180_DEGREES;
+//#endif
+         
         SPI_TRANSFER(0x36, madctl);
         
 //        SPI_TRANSFER(0x36, 0x08); 
@@ -70,8 +71,8 @@ void InitILI9488()
         SPI_TRANSFER(0x11);
         usleep(120*1000);
         SPI_TRANSFER(0x29); //display on 
-              
-      /*
+        */      
+      
       //0xE0 - PGAMCTRL Positive Gamma Control
       SPI_TRANSFER(0xE0, 0x00, 0x03, 0x09, 0x08, 0x16, 0x0A, 0x3F, 0x78, 0x4C, 0x09, 0x0A, 0x08, 0x16, 0x1A, 0x0F);
       //0xE1 - NGAMCTRL Negative Gamma Control
@@ -159,7 +160,7 @@ void InitILI9488()
       SPI_TRANSFER(0x38);
       // 0x13 Normal Display Mode ON.
       SPI_TRANSFER(0x13);
-*/
+
 #if defined(GPIO_TFT_BACKLIGHT) && defined(BACKLIGHT_CONTROL)
     printf("Setting TFT backlight on at pin %d\n", GPIO_TFT_BACKLIGHT);
     TurnBacklightOn();
