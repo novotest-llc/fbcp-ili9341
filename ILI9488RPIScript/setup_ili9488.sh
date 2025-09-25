@@ -8,11 +8,7 @@ fi
 
 # Introduction and confirmation
 clear
-echo "TFT 4\" Setup Script for ILI9488 on Raspberry Pi 4B"
-echo "Tested in December 2024 for TFT 4\" displays with dimensions 480x320."
-echo "This process involves modifying system files, downloading files, and installing dependencies."
-echo "These changes may affect the functionality of your Raspberry Pi."
-echo "At the end of the process, your Raspberry Pi will automatically reboot."
+echo "TFT 4\" Setup Script for KD035HVFBA062 on Raspberry Pi 4B"
 echo
 read -p "Do you authorize this process and accept full responsibility for any changes? (Y/N): " user_input
 if [[ "$user_input" != "Y" && "$user_input" != "y" ]]; then
@@ -34,13 +30,19 @@ raspi-config nonint do_spi 0
 echo "Starting TFT setup..."
 
 # Update system and install dependencies
-echo "Updating the system and installing dependencies..."
-apt update && apt upgrade -y
-apt install -y cmake git build-essential nano
+#echo "Updating the system and installing dependencies..."
+#apt update && apt upgrade -y
+#apt install -y cmake git build-essential nano
 
 # Configure fbcp-ili9341
 echo "Downloading and configuring fbcp-ili9341..."
 cd ~
+
+echo
+echo "!!!!!!!!!!!!!!!!!!!!!! Delete old source !!!!!!!!!!!!!!!!!!!!!!"
+echo
+rm -rf /root/fbcp-ili9341
+
 #Clone 
 echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Clone source driver !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
 git clone https://github.com/novotest-llc/fbcp-ili9341.git
@@ -51,17 +53,10 @@ cd build
 rm -rf *
 cmake -DUSE_GPU=ON -DSPI_BUS_CLOCK_DIVISOR=4 \
       -DGPIO_TFT_DATA_CONTROL=25 -DGPIO_TFT_RESET_PIN=17 \
-      -DILI9488=ON -DUSE_DMA_TRANSFERS=ON -DSTATISTICS=1 ..
+      -DILI9488=ON -DUSE_DMA_TRANSFERS=ON -DSTATISTICS=0 ..
 make -j$(nproc)
 sudo install fbcp-ili9341 /usr/local/bin/
 
-echo
-echo "!!!!!!!!!!!!!!!!!!!!!! Delete source !!!!!!!!!!!!!!!!!!!!!!"
-echo
-rm -rf /root/fbcp-ili9341
-echo
-#echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! Delete source !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-#sudo ls /root/fbcp-ili9341
 # Prompt before modifying config.txt
 echo
 echo "The script will now modify the Raspberry Pi configuration file (config.txt)."
