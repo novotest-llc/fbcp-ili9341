@@ -44,12 +44,14 @@ void InitILI9488()
     BEGIN_SPI_COMMUNICATION();
     {
 
+/*        
+        
         SPI_TRANSFER(0xC0, 0x17, 0x17); 
         SPI_TRANSFER(0xC1, 0x44); 
         SPI_TRANSFER(0xC5, 0x00, 0x35, 0x80); 
         
         uint8_t madctl(0);
-        /*
+        
 #ifndef DISPLAY_SWAP_BGR
         madctl |= MADCTL_BGR_PIXEL_ORDER;
 #endif
@@ -59,7 +61,7 @@ void InitILI9488()
 #ifdef DISPLAY_ROTATE_180_DEGREES
         madctl ^= MADCTL_ROTATE_180_DEGREES;
 #endif
-         */
+         
     //
     // Shifted value of bits [7:5] (MY - ROW_ADDRESS_ORDER_SWAP, MX - COLUMN_ADDRESS_ORDER_SWAP, MV ROW_COLUMN_EXCHANGE)
     // and their resulting effect on the orientation of the image
@@ -93,9 +95,9 @@ void InitILI9488()
 #endif
 
     ClearScreen();
-      
+*/      
         
-        /*
+        
         
   // If a Reset pin is defined, toggle it briefly high->low->high to enable the device. Some devices do not have a reset pin, in which case compile with GPIO_TFT_RESET_PIN left undefined.
 #if defined(GPIO_TFT_RESET_PIN) && GPIO_TFT_RESET_PIN >= 0
@@ -209,7 +211,7 @@ void InitILI9488()
 #endif
 
     ClearScreen();
-         */
+         
   }
   
 #ifndef USE_DMA_TRANSFERS // For DMA transfers, keep SPI CS & TA active.
