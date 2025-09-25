@@ -49,6 +49,7 @@ void InitILI9488()
         SPI_TRANSFER(0xC5, 0x00, 0x35, 0x80); 
         
         uint8_t madctl(0);
+        /*
 #ifndef DISPLAY_SWAP_BGR
         madctl |= MADCTL_BGR_PIXEL_ORDER;
 #endif
@@ -58,6 +59,7 @@ void InitILI9488()
 #ifdef DISPLAY_ROTATE_180_DEGREES
         madctl ^= MADCTL_ROTATE_180_DEGREES;
 #endif
+         */
     //
     // Shifted value of bits [7:5] (MY - ROW_ADDRESS_ORDER_SWAP, MX - COLUMN_ADDRESS_ORDER_SWAP, MV ROW_COLUMN_EXCHANGE)
     // and their resulting effect on the orientation of the image
