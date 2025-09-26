@@ -7,7 +7,7 @@
 #include <memory.h>
 #include <stdio.h>
 
-void InitILI9488() 
+void InitILI9488() 11231321231
 {
   // If a Reset pin is defined, toggle it briefly high->low->high to enable the device. Some devices do not have a reset pin, in which case compile with GPIO_TFT_RESET_PIN left undefined.
 #if defined(GPIO_TFT_RESET_PIN) && GPIO_TFT_RESET_PIN >= 0
