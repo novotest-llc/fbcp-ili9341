@@ -1,18 +1,12 @@
 #include "config.h"
 
 #if defined(ILI9488)
+
 #include "spi.h"
+
 #include <memory.h>
 #include <stdio.h>
 
-// Memory access control. Determines display orientation,
-// display color filter and refresh order/direction.
-#define ROTATE_0_DEGREES 0x08
-#define ROTATE_90_DEGREES 0x68
-#define ROTATE_180_DEGREES 0xc8
-#define ROTATE_270_DEGREES 0xa8
-
-//**************************************************************************************** 
 void InitILI9488()
 {
   // If a Reset pin is defined, toggle it briefly high->low->high to enable the device. Some devices do not have a reset pin, in which case compile with GPIO_TFT_RESET_PIN left undefined.
@@ -69,16 +63,15 @@ void InitILI9488()
   usleep(10 * 1000); // Delay a bit before restoring CLK, or otherwise this has been observed to cause the display not init if done back to back after the clear operation above.
   spi->clk = SPI_BUS_CLOCK_DIVISOR;
 }
-//**************************************************************************************** 
+
 void TurnBacklightOff()
 {
 #if defined(GPIO_TFT_BACKLIGHT) && defined(BACKLIGHT_CONTROL)
-    SET_GPIO_MODE(GPIO_TFT_BACKLIGHT, 0x01); // Set backlight pin to digital 0/1 output mode (0x01) in case it had been PWM controlled
-    CLEAR_GPIO(GPIO_TFT_BACKLIGHT); // And turn the backlight off.
+  SET_GPIO_MODE(GPIO_TFT_BACKLIGHT, 0x01); // Set backlight pin to digital 0/1 output mode (0x01) in case it had been PWM controlled
+  CLEAR_GPIO(GPIO_TFT_BACKLIGHT); // And turn the backlight off.
 #endif
 }
 
-//**************************************************************************************** 
 void TurnBacklightOn()
 {
 #if defined(GPIO_TFT_BACKLIGHT) && defined(BACKLIGHT_CONTROL)

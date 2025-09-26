@@ -97,6 +97,12 @@ if (LOW_BATTERY_PIN)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DLOW_BATTERY_PIN=${LOW_BATTERY_PIN}")
 endif()
 
+option(DESKTOP "For desktop version" OFF)
+if (DESKTOP)
+	message(STATUS "Enabling Desktop")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DDESKTOP")
+endif()
+
 option(BACKLIGHT_CONTROL "If true, enables fbcp-ili9341 to take control of backlight" OFF)
 if (BACKLIGHT_CONTROL)
 	message(STATUS "Enabling fbcp-ili9341 backlight control")
