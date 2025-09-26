@@ -29,7 +29,7 @@ void InitILI9488()
         SPI_TRANSFER(0xC1, 0x44); 
         SPI_TRANSFER(0xC5, 0x00, 0x35, 0x80); 
         
-        uint8_t madctl(ROTATE_0_DEGREES);
+        uint8_t madctl(ROTATE_0_DEGREES); 
         SPI_TRANSFER(0x36, madctl);
         
         SPI_TRANSFER(0x3A, 0x66); //rgb666
